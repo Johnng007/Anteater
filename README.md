@@ -18,23 +18,23 @@
 
 # 🔨 USAGE
 
-      ```bash
-      # Help
-      ❯ python3 anteater -h
+    ```bash
+    # Help
+    ❯ python3 anteater -h
       
-      # Default
-      ❯ python3 anteater.py https://john.ng
+    # Default
+    ❯ python3 anteater.py https://john.ng
       
-      # Time Delay in Minutes
-      ❯ python3 anteater.py https://john.ng -d 3
+    # Time Delay in Minutes
+    ❯ python3 anteater.py https://john.ng -d 3
       
-      # Parse all connections through tor
-      ❯ python3 anteater.py https://john.ng -t
+    # Parse all connections through tor
+    ❯ python3 anteater.py https://john.ng -t
       
-      # Parse all connections through a Proxy List
-      ❯ python3 anteater.py https://john.ng -p proxylist.txt
+    # Parse all connections through a Proxy List
+    ❯ python3 anteater.py https://john.ng -p proxylist.txt
       
-      # Of course you can be very insane
-      ❯ python3 anteater.py https://john.ng -p proxylist.txt -d 3 -t
+    # Of course you can be very insane
+    ❯ python3 anteater.py https://john.ng -p proxylist.txt -d 3 -t
      
-     ```
+    ```
