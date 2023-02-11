@@ -6,4 +6,12 @@
 <p>Anteater discovers admin pages as well.</p>
 
 # 🥊 INSTALLATION
-  * #### Git Clone 
+     * #### Git Clone 
+      ```bash
+      # Download and Usage
+      ❯ git clone https://github.com/Johnng007/Anteater.git
+      ❯ cd Anteater
+      ❯ pip3 install -r requirements.txt
+      ❯ chmod +x anteater.py
+      ❯ ./anteater.py -h
+      ```
