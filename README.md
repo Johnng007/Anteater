@@ -40,3 +40,14 @@
      ❯ python3 anteater.py https://john.ng -p proxylist.txt -d 3 -t
      
      ```
+     
+## 🔥 Features
+  
+- [x] Multiplatforms `(Windows/Linux/MacOS)`
+- [x] Detects Over 100+ Known CNS
+- [x] Detects Over 1000 well known Admin Panels  
+- [x] Console works with params, like: `❯ python3 anteater.py https://john.ng --proxy 127.0.0.1:8080`
+- [x] Random-Agents
+- [x] HTTP/HTTPS Proxies
+- [x] Anonymity via Tor
+
