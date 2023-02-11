@@ -6,7 +6,8 @@
 <p>Anteater discovers admin pages as well.</p>
 
 # 🥊 INSTALLATION
-     * #### Git Clone 
+
+   * #### Git Clone 
       ```bash
       # Download and Usage
       ❯ git clone https://github.com/Johnng007/Anteater.git
