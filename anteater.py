@@ -9,6 +9,7 @@ import socket
 from bs4 import BeautifulSoup
 from colorama import Fore, Style
 import signal
+from tqdm.auto import tqdm
 
 def handler(signum, frame):
     res = input("Ctrl-c was pressed. Do you really want to exit? y/n ")
@@ -18,19 +19,17 @@ def handler(signum, frame):
 signal.signal(signal.SIGINT, handler)
 
 blue = Fore.BLUE
+yellow = Fore.YELLOW
 red = Fore.RED
-cyan = Fore.CYAN
-green = Fore.GREEN
 magenta = Fore.MAGENTA
-RESET = Fore.RESET
+cyan = Fore.CYAN
 DIM = Style.DIM
-NORMAL = Style.NORMAL
+green = Fore.GREEN
+RESET = Fore.RESET
 BOLD = Style.BRIGHT
 RESET_ALL = Style.RESET_ALL
 
 
-#def print_colored_text(text, color):
-#    if color == "red":
 print("\033[91m" 
             f"""
 
@@ -63,22 +62,8 @@ else:
     proxy_list = []
 
 # Read the user agent list from file
-#with open('user_agents.txt', 'r') as f:
-    #user_agents = f.read().splitlines()
-user_agents = [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-        "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/603.2.4 (KHTML, like Gecko) Version/10.1.1 Safari/603.2.4",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko"
-    ]
-
-# Function to send a request to the website using a random user agent and proxy
-
-
-
-
+with open('ANTS/ant_useragents.txt', 'r') as f:
+    user_agents = f.read().splitlines()
 
 
 def send_request(url, proxy=None):
@@ -160,34 +145,37 @@ if args.tor:
     socket.socket = socks.socksocket
 
 # Read the website list from file
-with open('/ANTS/ants.txt', 'r') as f:
+with open('ANTS/ants.txt', 'r') as f:
     website_list = f.read().splitlines()
+ 
+    admin_count = 0
+    total_count = len(website_list)
+    pbar = tqdm(
+            total=total_count,
+            leave=False,
+            bar_format=(
 
+            ),
+        )
 # Iterate through each website in the list
 for website in website_list:
     url = args.url + website
-    #print(f'Checking: {url}')
-    
+    pbar.update()
     if args.proxy:
         proxy = random.choice(proxy_list)
-        #result = detect_cms_and_tech_stack(url, proxy)
         if is_valid_webpage(url):
-        #if result:
-             print(blue + f"\n ҂ Found: {url}  " + RESET_ALL)
-             
-            #print(f'Result: Valid ({result[0]}, {result[1]})')
-        #else:
-            #print(' ')
+             tqdm.write(yellow + f"\n ҂ Found: {url}  " + RESET_ALL)
+
+             admin_count += 1
     else:
-        #result = detect_cms_and_tech_stack(url)
         if is_valid_webpage(url):
-        #print(f"\n{page_url} exists.")
-        #if result:
-        #    print(f'Result: Valid ({result[0]}, {result[1]})')
-             #print(f"\n{url} exists.")
-             print(blue + f"\n ҂ Found: {url}  " + RESET_ALL)
-             
-        #else:
-           # print(' ')
+             tqdm.write(yellow + f"\n ҂ Found: {url}  " + RESET_ALL)
+
+             admin_count += 1
     if args.delay:
         time.sleep(args.delay * 60)
+
+pbar.close()
+print("\n\n\t╔═══[✔️]", green, BOLD, " Completed", RESET_ALL)
+print("\t╟───╸📑️", str(admin_count), "Admin pages found")
+print("\t╚═══[📚️]", str(total_count), "total pages scanned")
