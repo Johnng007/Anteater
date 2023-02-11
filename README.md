@@ -18,7 +18,7 @@
 
 # 🔨 USAGE
 
-  * #### Git Clone 
+  * #### Main 
 
      ```bash
      # Help
