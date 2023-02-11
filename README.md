@@ -51,3 +51,9 @@
 - [x] HTTP/HTTPS Proxies
 - [x] Anonymity via Tor
 
+
+## ✨ ChangeLog
+```bash
+v1.0.0 11/02/2023
+Initial Release
+```
