@@ -52,6 +52,9 @@
 - [x] HTTP/HTTPS Proxies
 - [x] Anonymity via Tor
 
+## 🔥 Screenshot
+
+![](https://github.com/Johnng007/Anteater/blob/main/assets/Anteater-recon.png?raw=true)
 
 ## ✨ ChangeLog
 ```bash
