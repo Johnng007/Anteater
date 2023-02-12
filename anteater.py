@@ -32,14 +32,12 @@ RESET_ALL = Style.RESET_ALL
 
 print("\033[91m" 
             f"""
-
     Interesting Loot           Reconnaissance          
       / \   _ __ | |_ ___  __ _| |_ ___ _ __ 
      / _ \ | '_ \| __/ _ \/ _` | __/ _ \ '__|
     / ___ \| | | | ||  __/ (_| | ||  __/ |   
    /_/   \_\_| |_|\__\___|\__,_|\__\___|_|   
                 coded by The El Pontiffico                             
-
         """,  
          "\033[0m" )
 
@@ -57,11 +55,19 @@ args = parser.parse_args()
 # Read the proxy list from file
 if args.proxy:
     with open(args.proxy, 'r') as f:
-        proxy_list = f.read().splitlines()
+         #proxy_list = f.read().splitlines()
+         proxy_list = f.readlines()
 else:
     proxy_list = []
 
-proxied = {random.choice(proxy_list)}
+
+# Remove the newline characters from each proxy
+proxy_list = [proxy.strip() for proxy in proxy_list]
+
+#proxied = {random.choice(proxy_list)}
+
+
+
 
 # Read the user agent list from file
 with open('ANTS/ant_useragents.txt', 'r') as f:
@@ -72,8 +78,8 @@ def send_request(url, proxy=None):
     headers = {'User-Agent': random.choice(user_agents)}
     try:
         if proxy:
-            #response = requests.get(url, headers=headers, proxies={'http': proxied, 'https': proxied})
-            response = requests.get(url, headers=headers, proxies=proxied)
+            response = requests.get(url, headers=headers, proxies={"http": proxy_list, "https": proxy_list})
+            #response = requests.get(url, headers=headers, proxies=proxy)
         else:
             response = requests.get(url, headers=headers)
         return response
@@ -132,15 +138,34 @@ print("Technology Stack:" + " " + cyan + "{}".format(tech_stack) + RESET_ALL)
 
 
 def is_valid_webpage(url):
+
     headers = {'User-Agent': random.choice(user_agents)}
     try:
-       #response = requests.get(url, headers=headers)
-       response = send_request(url, proxy)
        response = requests.get(url, headers=headers)
+       #response = send_request(url, proxy=None)
+       #response = requests.get(url, headers=headers)
+       #response = requests.get(url, headers=headers)
     except requests.exceptions.RequestException as e:
         print(e)
         return False
     
+    return response.status_code == 200
+
+
+
+def is_valid_webpage_proxy(url):
+    
+    for proxy in proxy_list:
+        headers = {'User-Agent': random.choice(user_agents)}
+        try:
+        # Send the request using the current proxy
+            response = requests.get(url, headers=headers, proxies={"http": proxy, "https": proxy})
+
+        except requests.exceptions.RequestException as e:
+        # Print an error message if the request failed
+            print(e)
+            return False
+            print("Request failed for proxy:", proxy)
     return response.status_code == 200
 
 
@@ -167,10 +192,8 @@ with open('ANTS/ants.txt', 'r') as f:
 for website in website_list:
     url = args.url + website
     pbar.update()
-    if args.proxy:
-        proxy = random.choice(proxy_list)
-        
-        if is_valid_webpage(url):
+    if args.proxy: 
+        if is_valid_webpage_proxy(url):
              tqdm.write(yellow + f"\n ҂ Found: {url}  " + RESET_ALL)
 
              admin_count += 1
