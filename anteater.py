@@ -61,6 +61,8 @@ if args.proxy:
 else:
     proxy_list = []
 
+proxied = {random.choice(proxy_list)}
+
 # Read the user agent list from file
 with open('ANTS/ant_useragents.txt', 'r') as f:
     user_agents = f.read().splitlines()
@@ -70,7 +72,8 @@ def send_request(url, proxy=None):
     headers = {'User-Agent': random.choice(user_agents)}
     try:
         if proxy:
-            response = requests.get(url, headers=headers, proxies={'http': proxy, 'https': proxy})
+            #response = requests.get(url, headers=headers, proxies={'http': proxied, 'https': proxied})
+            response = requests.get(url, headers=headers, proxies=proxied)
         else:
             response = requests.get(url, headers=headers)
         return response
@@ -129,8 +132,11 @@ print("Technology Stack:" + " " + cyan + "{}".format(tech_stack) + RESET_ALL)
 
 
 def is_valid_webpage(url):
+    headers = {'User-Agent': random.choice(user_agents)}
     try:
-        response = requests.get(url)
+       #response = requests.get(url, headers=headers)
+       response = send_request(url, proxy)
+       response = requests.get(url, headers=headers)
     except requests.exceptions.RequestException as e:
         print(e)
         return False
@@ -163,6 +169,7 @@ for website in website_list:
     pbar.update()
     if args.proxy:
         proxy = random.choice(proxy_list)
+        
         if is_valid_webpage(url):
              tqdm.write(yellow + f"\n ҂ Found: {url}  " + RESET_ALL)
 
