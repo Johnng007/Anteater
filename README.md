@@ -49,7 +49,7 @@
 - [x] Detects Over 1000 well known Admin Panels  
 - [x] Random-Agents
 - [x] Time delay in minutes between each request
-- [x] HTTP/HTTPS Proxies
+- [x] HTTP/HTTPS Proxies (i.e http://127.0.0.1:80) in new line
 - [x] Anonymity via Tor
 
 ## 🔥 Screenshot
