@@ -1,3 +1,4 @@
+/.mailmap
 /package.json
 /MANIFEST.json
 /wp-json/wp/v2/users
