@@ -5,3 +5,4 @@ trio>=0.22.0
 beautifulsoup4==4.10.0
 socksio==1.0.0
 requests==2.28.2
+tqdm
